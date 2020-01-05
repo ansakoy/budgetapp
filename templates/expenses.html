@@ -1,0 +1,18 @@
+{% extends "layout.html" %}
+
+{% block content %}
+    <h1>Expenses</h1>
+
+    {% for entry in expenses %}
+
+    <div class="card text-white bg-dark mb-1">
+      <div class="card-body">
+          <a href="#"><h6 class="card-title">{{ entry.date }}</h6></a>
+          <small class="card-subtitle text-muted">{{ entry.category }}: <b>{{ entry.price }}</b> <i class="fas fa-ruble-sign"></i></small>
+          <br>
+          <small class="card-text text-muted">{{ entry.comment }}</small>
+      </div>
+    </div>
+
+    {% endfor %}
+{% endblock %}
