@@ -32,10 +32,21 @@
   <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
     <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
         <li class="nav-item"><a class="nav-link" href="{{ url_for('home') }}">Home</a></li>
-        <li class="nav-item"><a class="nav-link" href="{{ url_for('expenses') }}">Expenses</a></li>
         <li class="nav-item"><a class="nav-link" href="{{ url_for('about') }}">About</a></li>
+
+        {% if current_user.is_authenticated %}
+
+        <li class="nav-item"><a class="nav-link" href="{{ url_for('expenses') }}">Expenses</a></li>
+        <li class="nav-item"><a class="nav-link" href="{{ url_for('account') }}">Account</a></li>
+        <li class="nav-item"><a class="nav-link" href="{{ url_for('logout') }}">Log out</a></li>
+
+        {% else %}
+
         <li class="nav-item"><a class="nav-link" href="{{ url_for('register') }}">Register</a></li>
         <li class="nav-item"><a class="nav-link" href="{{ url_for('login') }}">Log in</a></li>
+
+        {% endif %}
+
     </ul>
   </div>
 </nav>

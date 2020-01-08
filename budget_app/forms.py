@@ -1,7 +1,8 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, SubmitField, BooleanField
-from wtforms.validators import DataRequired, Length, Email, EqualTo
+from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError
 
+from budget_app.models import User
 
 class RegistrationForm(FlaskForm):
     username = StringField(
@@ -21,6 +22,14 @@ class RegistrationForm(FlaskForm):
         validators=[DataRequired(), EqualTo('password')]
     )
     submit = SubmitField('Sign Up')
+
+    def validate_username(self, username):
+        if User.query.filter_by(username=username.data).first():  # None if not found
+            raise ValidationError('This username already exists')
+
+    def validate_email(self, email):
+        if User.query.filter_by(email=email.data).first():  # None if not found
+            raise ValidationError('User with this email already exists')
 
 
 class LoginForm(FlaskForm):
